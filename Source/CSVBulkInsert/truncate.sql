@@ -1,0 +1,3 @@
+use ip;
+
+Call truncateIPGeoLocation;

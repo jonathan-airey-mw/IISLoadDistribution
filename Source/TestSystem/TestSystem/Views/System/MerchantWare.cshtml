@@ -1,0 +1,38 @@
+﻿@model TestSystem.Models.MerchantWare
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>MerchantWare</title>
+</head>
+<body>
+    
+    <p>@Html.ActionLink("Home", "Index")</p>
+    @using (Html.BeginForm())
+    {
+        //<p>System Name: @Html.TextBoxFor(x => x.SystemName)</p>
+       // <p>System Path: @Html.TextBoxFor(x => x.PathName)</p>
+        
+
+        <p>
+            MerchantWare Version:
+            @Html.DropDownListFor(x => x.SystemName, new [] {
+                new SelectListItem() {Text = "MerchantWare 1", Value = "MerchantWare 1.0"},
+                new SelectListItem() {Text = "MerchantWare 2", Value = "MerchantWare 2.0"},
+                new SelectListItem() {Text = "MerchantWare 3", Value = "MerchantWare 3.0"},
+                new SelectListItem() {Text = "MerchantWare 4", Value = "MerchantWare 4.0"} 
+            }, "Choose a system")
+        </p>
+        <p>System Path: @Html.TextBoxFor(x => x.PathName)</p>
+        
+        <input type="submit" value="Add" />
+
+    }
+
+</body>
+</html>
