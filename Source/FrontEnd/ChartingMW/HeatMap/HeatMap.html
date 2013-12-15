@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>Merchantware HeatMap</title>
+        <link rel="stylesheet" href="../FrontEndResources/css/ammap.css" type="text/css">
+        <script type="text/javascript" src="../FrontEndResources/js/jquery-1.9.1.min.js"></script>        
+        <script src="../FrontEndResources/js/ammap.js" type="text/javascript"></script>
+		<script src="../FrontEndResources/js/usaLow.js" type="text/javascript"></script>   
+		<script src="defaultTemplate.js" type="text/javascript"></script>
+    	<script type="text/javascript" src="../FrontEndResources/js/common/formatting.js"></script>
+        <script type="text/javascript">
+			var hour = 0;
+    		var ds = new Array();
+
+	        $.ajax({
+	            type: 'get',
+	            url: 'http://localhost:4567/StateDistribution/2013/10/4',
+	            dataType: 'jsonp',
+	            success: function(data) {   
+	                $.each(data, function(hour, values) {
+	                	ds[hour] = fetchTemplate();
+            			$.each(values, function(state, weight ) {
+            				ds[hour].forEach(function(entry) {
+								if(entry.id == ('US-' + state)) {
+									entry.value = weight;
+								};
+							});
+        				});
+                	});
+
+	                setInterval(function(){ 
+	                    render();
+	                    if(hour==15) {
+	                        hour = 0
+	                    } 
+	                    else {
+	                        hour++;
+	                    }   
+	                }, 1000);
+                }
+            });
+
+			function render() {
+				$('#hourHeader').text(formatHour(hour));
+				console.log(hour);
+				AmCharts.makeChart("mapdiv", {
+					type: "map",
+					pathToImages: "../FrontEndResources/images/ammap/",
+				
+					colorSteps: 15,
+					
+					dataProvider: {
+						map: "usaLow",
+						areas: ds[hour]
+					},
+
+			
+					areasSettings: {
+						autoZoom: true
+					},			
+				
+					valueLegend: {
+						right: 10,
+						minValue: "little",
+						maxValue: "a lot!"
+					}
+				})		
+			};
+		</script>
+    </head>
+    
+    <body style="background-image: url('../FrontEndResources/images/ammap/board.jpg'); background-color:#000000;">
+    	<h1 id="hourHeader"></h1>
+        <div id="mapdiv" style="width: 100%; height: 500px;"></div>
+    </body>
+
+</html>

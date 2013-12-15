@@ -1,4 +1,4 @@
-use ip;
+use mydb;
 
 
 load data local infile 'C:/git/IISLoadDistribution/Source/CSVBulkInsert/GeoLiteCity-Blocks.csv' into table ip_num_blocks

@@ -1,6 +1,6 @@
-use ip;
+use mydb;
 
-load data local infile 'C:/git/IISLoadDistribution/Source/CSVBulkInsert/GeoLiteCity-Location.csv' into table ip.ip_location
+load data local infile 'C:/git/IISLoadDistribution/Source/CSVBulkInsert/GeoLiteCity-Location.csv' into table ip_location
 fields terminated by ','
 enclosed by '"'
 lines terminated by '\n'

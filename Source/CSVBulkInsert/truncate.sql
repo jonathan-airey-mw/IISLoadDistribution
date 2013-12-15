@@ -1,3 +1,3 @@
-use ip;
+use mydb;
 
 Call truncateIPGeoLocation;
